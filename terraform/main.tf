@@ -82,8 +82,8 @@ resource "aws_iam_role" "ec2_role" {
           ]
           Effect   = "Allow"
           Resource = [
-            "arn:aws:logs:us-east-1:${local.account_id}:*/*",
-            "arn:aws:dynamodb:us-east-1:${local.account_id}:*/*"
+            "arn:aws:logs:ca-central-1:${local.account_id}:*/*",
+            "arn:aws:dynamodb:ca-central-1:${local.account_id}:*/*"
           ]
         }
       ]
@@ -98,6 +98,7 @@ resource "aws_iam_role" "ec2_role" {
       Statement = [
         {
           Action = [
+            "ecr:GetAuthorizationToken",
             "ecr:BatchCheckLayerAvailability",
             "ecr:BatchGetImage",
             "ecr:GetDownloadUrlForLayer",
@@ -132,8 +133,8 @@ resource "aws_iam_role" "autoscaling_role" {
           ]
           Effect   = "Allow"
           Resource = [
-            "arn:aws:ecs:us-east-1:${local.account_id}:*/*",
-            "arn:aws:cloudwatch:us-east-1:${local.account_id}:*/*"
+            "arn:aws:ecs:ca-central-1:${local.account_id}:*/*",
+            "arn:aws:cloudwatch:ca-central-1:${local.account_id}:*/*"
           ]
         }
       ]
@@ -379,7 +380,7 @@ resource "aws_ecs_task_definition" "ecs_task_definition" {
       "logDriver": "awslogs",
       "options": {
         "awslogs-group": "ecs-logs",
-        "awslogs-region": "us-east-1",
+        "awslogs-region": "ca-central-1",
         "awslogs-stream-prefix": "ecs-demo-app"
       }
     },
